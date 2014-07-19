@@ -1,0 +1,672 @@
+diff -ruN tiff-v3.4beta037.orig/html/Makefile.emx tiff-v3.4beta037/html/Makefile.emx
+--- tiff-v3.4beta037.orig/html/Makefile.emx	Thu Jan  1 00:00:00 1970
++++ tiff-v3.4beta037/html/Makefile.emx	Sun Jul 12 07:26:14 1998
+@@ -0,0 +1,94 @@
++#	$Header: /d1/sam/tiff/html/RCS/Makefile.in,v 1.15 1997/08/29 21:47:05 sam Exp $
++#
++# @WARNING@
++#
++# Tag Image File Format Library Manual Pages
++#
++# Copyright (c) 1991-1997 Sam Leffler
++# Copyright (c) 1991-1997 Silicon Graphics, Inc.
++# 
++# Permission to use, copy, modify, distribute, and sell this software and 
++# its documentation for any purpose is hereby granted without fee, provided
++# that (i) the above copyright notices and this permission notice appear in
++# all copies of the software and related documentation, and (ii) the names of
++# Sam Leffler and Silicon Graphics may not be used in any advertising or
++# publicity relating to the software without the specific, prior written
++# permission of Stanford and Silicon Graphics.
++# 
++# THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND, 
++# EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY 
++# WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  
++# 
++# IN NO EVENT SHALL SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR
++# ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
++# OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
++# WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF 
++# LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 
++# OF THIS SOFTWARE.
++#
++
++exec_prefix=e:/unix
++
++SHELL	= sh
++NULL	=
++ECHO	= echo
++MV	= mv
++RM	= rm -f
++INSTALL	= install
++
++HTMLDIR	= $(exec_prefix)/doc/tiff/html
++
++HTMLFILES=\
++	bugs.html		\
++	build.html		\
++	contrib.html		\
++	document.html		\
++	images.html		\
++	index.html		\
++	internals.html		\
++	intro.html		\
++	libtiff.html		\
++	misc.html		\
++	support.html		\
++	tools.html		\
++	v3.4beta007.html	\
++	v3.4beta016.html	\
++	v3.4beta018.html	\
++	v3.4beta024.html	\
++	v3.4beta028.html	\
++	v3.4beta029.html	\
++	v3.4beta031.html	\
++	v3.4beta032.html	\
++	v3.4beta033.html	\
++	v3.4beta034.html	\
++	v3.4beta035.html	\
++	v3.4beta036.html	\
++	${NULL}
++IMAGES=\
++	images/back.gif		\
++	images/bali.jpg		\
++	images/cat.gif		\
++	images/cover.jpg	\
++	images/cramps.gif	\
++	images/jello.jpg	\
++	images/jim.gif		\
++	images/note.gif		\
++	images/oxford.gif	\
++	images/quad.jpg		\
++	images/ring.gif		\
++	images/smallliz.jpg	\
++	images/strike.gif	\
++	images/warning.gif	\
++	${NULL}
++TARGETS=
++
++all:	${TARGETS}
++
++install: all
++	@${INSTALL} -d ${HTMLDIR}
++	${INSTALL} -c ${HTMLFILES} ${HTMLDIR}
++	@${INSTALL} -d $(HTMLDIR)/images
++	${INSTALL} -c ${IMAGES} ${HTMLDIR}/images
++
++clean:
++
+diff -ruN tiff-v3.4beta037.orig/libtiff/Makefile.emx tiff-v3.4beta037/libtiff/Makefile.emx
+--- tiff-v3.4beta037.orig/libtiff/Makefile.emx	Thu Jan  1 00:00:00 1970
++++ tiff-v3.4beta037/libtiff/Makefile.emx	Fri Sep 18 01:34:44 1998
+@@ -0,0 +1,142 @@
++#	$Header: /d1/sam/tiff/libtiff/RCS/Makefile.in,v 1.43 1997/08/29 22:47:50 sam Exp $
++#
++# Tag Image File Format Library
++#
++# Copyright (c) 1988-1997 Sam Leffler
++# Copyright (c) 1991-1997 Silicon Graphics, Inc.
++# 
++# Permission to use, copy, modify, distribute, and sell this software and 
++# its documentation for any purpose is hereby granted without fee, provided
++# that (i) the above copyright notices and this permission notice appear in
++# all copies of the software and related documentation, and (ii) the names of
++# Sam Leffler and Silicon Graphics may not be used in any advertising or
++# publicity relating to the software without the specific, prior written
++# permission of Sam Leffler and Silicon Graphics.
++# 
++# THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND, 
++# EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY 
++# WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  
++# 
++# IN NO EVENT SHALL SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR
++# ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
++# OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
++# WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF 
++# LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 
++# OF THIS SOFTWARE.
++#
++#
++
++prefix=e:/emx
++#
++AR=	ar
++RANLIB=	ar s
++NULL=
++
++CC=	gcc
++COPTS=	-ansi -O2 -m486 -Zomf -Zmt -D__ST_MT_ERRNO__ -DJPEG_SUPPORT -DZIP_SUPPORT
++CFLAGS=	${COPTS} -I.
++#
++INCS=	tiff.h tiffio.h
++
++VERSION= ../VERSION
++ALPHA=	../dist/tiff.alpha
++
++SRCS	= \
++	tif_aux.c \
++	tif_close.c \
++	tif_codec.c \
++	tif_compress.c \
++	tif_dir.c \
++	tif_dirinfo.c \
++	tif_dirread.c \
++	tif_dirwrite.c \
++	tif_dumpmode.c \
++	tif_error.c \
++	tif_fax3.c \
++	tif_fax3sm.c \
++	tif_getimage.c \
++	tif_jpeg.c \
++	tif_flush.c \
++	tif_luv.c \
++	tif_lzw.c \
++	tif_next.c \
++	tif_open.c \
++	tif_packbits.c \
++	tif_pixarlog.c \
++	tif_predict.c \
++	tif_print.c \
++	tif_read.c \
++	tif_swab.c \
++	tif_strip.c \
++	tif_thunder.c \
++	tif_tile.c \
++	tif_unix.c \
++	tif_version.c \
++	tif_warning.c \
++	tif_write.c \
++	tif_zip.c \
++	${NULL}
++OBJS	= \
++	tif_aux.o \
++	tif_close.o \
++	tif_codec.o \
++	tif_compress.o \
++	tif_dir.o \
++	tif_dirinfo.o \
++	tif_dirread.o \
++	tif_dirwrite.o \
++	tif_dumpmode.o \
++	tif_error.o \
++	tif_fax3.o \
++	tif_fax3sm.o \
++	tif_getimage.o \
++	tif_jpeg.o \
++	tif_flush.o \
++	tif_luv.o \
++	tif_lzw.o \
++	tif_next.o \
++	tif_open.o \
++	tif_packbits.o \
++	tif_pixarlog.o \
++	tif_predict.o \
++	tif_print.o \
++	tif_read.o \
++	tif_swab.o \
++	tif_strip.o \
++	tif_thunder.o \
++	tif_tile.o \
++	tif_unix.o \
++	tif_version.o \
++	tif_warning.o \
++	tif_write.o \
++	tif_zip.o \
++	${NULL}
++
++all:	tiff.dll
++
++tiff.dll: $(OBJS)
++	emximp -o tiff.a tiffos2.def
++	emximp -o tiff.lib tiffos2.def
++	${CC} -s -o tiff.dll $(OBJS) tiffos2.def -Zomf -Zdll -Zmtd -ljpeg -lz
++
++tif_fax3sm.c: mkg3states.c tif_fax3.h
++	${CC} -o mkg3states.exe ${CFLAGS} mkg3states.c
++	rm -f tif_fax3sm.c && mkg3states -c const tif_fax3sm.c
++
++version.h: mkversion.c
++	${CC} -o mkversion.exe ${CFLAGS} mkversion.c
++	rm -f version.h && mkversion -v ${VERSION} -a ${ALPHA} version.h
++tif_version.o: version.h
++
++install: all
++	@install -d ${prefix}/lib
++	install -c tiff.a tiff.lib ${prefix}/lib
++	@install -d ${prefix}/dll
++	install -c tiff.dll ${prefix}/dll
++	@install -d ${prefix}/include
++	install -c ${INCS} ${prefix}/include
++
++clean:
++	rm -f *.dll ${OBJS} core a.out mkg3states.exe mkversion.exe
++	rm -f *.a *.lib tif_fax3sm.c version.h
++
+diff -ruN tiff-v3.4beta037.orig/libtiff/tiffos2.def tiff-v3.4beta037/libtiff/tiffos2.def
+--- tiff-v3.4beta037.orig/libtiff/tiffos2.def	Thu Jan  1 00:00:00 1970
++++ tiff-v3.4beta037/libtiff/tiffos2.def	Fri Sep 18 01:34:50 1998
+@@ -0,0 +1,95 @@
++LIBRARY tiff
++DESCRIPTION "Tag Image File Format Library version 3.4beta037"
++CODE	PRELOAD
++DATA	MULTIPLE NONSHARED
++STACKSIZE 32768
++EXPORTS
++	TIFFGetVersion @ 1
++	TIFFFindCODEC @ 2
++	TIFFRegisterCODEC @ 3
++	TIFFUnRegisterCODEC @ 4
++	_TIFFmalloc @ 5
++	_TIFFrealloc @ 6
++	_TIFFmemset @ 7
++	_TIFFmemcpy @ 8
++	_TIFFmemcmp @ 9
++	_TIFFfree @ 10
++	TIFFClose @ 11
++	TIFFFlush @ 12
++	TIFFFlushData @ 13
++	TIFFGetField @ 14
++	TIFFVGetField @ 15
++	TIFFGetFieldDefaulted @ 16
++	TIFFVGetFieldDefaulted @ 17
++	TIFFReadDirectory @ 18
++	TIFFScanlineSize @ 19
++	TIFFRasterScanlineSize @ 20
++	TIFFStripSize @ 21
++	TIFFVStripSize @ 22
++	TIFFTileRowSize @ 23
++	TIFFTileSize @ 24
++	TIFFVTileSize @ 25
++	TIFFDefaultStripSize @ 26
++	TIFFDefaultTileSize @ 27
++	TIFFFileno @ 28
++	TIFFGetMode @ 29
++	TIFFIsTiled @ 30
++	TIFFIsByteSwapped @ 31
++	TIFFIsUpSampled @ 32
++	TIFFIsMSB2LSB @ 33
++	TIFFCurrentRow @ 34
++	TIFFCurrentDirectory @ 35
++	TIFFNumberOfDirectories @ 36
++	TIFFCurrentDirOffset @ 37
++	TIFFCurrentStrip @ 38
++	TIFFCurrentTile @ 39
++	TIFFReadBufferSetup @ 40
++	TIFFWriteBufferSetup @ 41
++	TIFFLastDirectory @ 42
++	TIFFSetDirectory @ 43
++	TIFFSetSubDirectory @ 44
++	TIFFUnlinkDirectory @ 45
++	TIFFSetField @ 46
++	TIFFVSetField @ 47
++	TIFFWriteDirectory @ 48
++	TIFFPrintDirectory @ 49
++	TIFFReadScanline @ 50
++	TIFFWriteScanline @ 51
++	TIFFReadRGBAImage @ 52
++	TIFFRGBAImageOK @ 53
++	TIFFRGBAImageBegin @ 54
++	TIFFRGBAImageGet @ 55
++	TIFFRGBAImageEnd @ 56
++	TIFFOpen @ 57
++	TIFFFdOpen @ 58
++	TIFFClientOpen @ 59
++	TIFFFileName @ 60
++	TIFFError @ 61
++	TIFFWarning @ 62
++	TIFFSetErrorHandler @ 63
++	TIFFSetWarningHandler @ 64
++	TIFFSetTagExtender @ 65
++	TIFFComputeTile @ 66
++	TIFFCheckTile @ 67
++	TIFFNumberOfTiles @ 68
++	TIFFReadTile @ 69
++	TIFFWriteTile @ 70
++	TIFFComputeStrip @ 71
++	TIFFNumberOfStrips @ 72
++	TIFFReadEncodedStrip @ 73
++	TIFFReadRawStrip @ 74
++	TIFFReadEncodedTile @ 75
++	TIFFReadRawTile @ 76
++	TIFFWriteEncodedStrip @ 77
++	TIFFWriteRawStrip @ 78
++	TIFFWriteEncodedTile @ 79
++	TIFFWriteRawTile @ 80
++	TIFFSetWriteOffset @ 81
++	TIFFSwabShort @ 82
++	TIFFSwabLong @ 83
++	TIFFSwabDouble @ 84
++	TIFFSwabArrayOfShort @ 85
++	TIFFSwabArrayOfLong @ 86
++	TIFFSwabArrayOfDouble @ 87
++	TIFFReverseBits @ 88
++	TIFFGetBitRevTable @ 89
+diff -ruN tiff-v3.4beta037.orig/Makefile.emx tiff-v3.4beta037/Makefile.emx
+--- tiff-v3.4beta037.orig/Makefile.emx	Thu Jan  1 00:00:00 1970
++++ tiff-v3.4beta037/Makefile.emx	Fri Jan 22 22:36:30 1999
+@@ -0,0 +1,29 @@
++
++SHELL=sh
++
++all:
++	cd libtiff; $(MAKE) -f Makefile.emx
++	cd tools; $(MAKE) -f Makefile.emx
++#	cd man; $(MAKE) -f Makefile.emx
++
++install: install.lib
++
++install.lib:
++	cd libtiff; $(MAKE) -f Makefile.emx install
++
++install.bin:
++	cd tools; $(MAKE) -f Makefile.emx install
++
++install.all: install.lib install.bin
++#	cd html; $(MAKE) -f Makefile.emx install
++#	cd man; $(MAKE) -f Makefile.emx install
++
++clean:
++	cd libtiff; $(MAKE) -f Makefile.emx clean
++	cd tools; $(MAKE) -f Makefile.emx clean
++#	cd man; $(MAKE) -f Makefile.emx clean
++
++release:
++	$(MAKE) -f Makefile.emx install.all clean prefix=f:/release/tiff \
++		exec_prefix=f:/release/tiff
++
+diff -ruN tiff-v3.4beta037.orig/man/Makefile.emx tiff-v3.4beta037/man/Makefile.emx
+--- tiff-v3.4beta037.orig/man/Makefile.emx	Thu Jan  1 00:00:00 1970
++++ tiff-v3.4beta037/man/Makefile.emx	Fri Jan 15 14:37:06 1999
+@@ -0,0 +1,108 @@
++#! smake
++#	$Header: /d1/sam/tiff/man/RCS/Makefile.in,v 1.14 1997/08/29 21:47:57 sam Exp $
++#
++# @WARNING@
++#
++# Tag Image File Format Library Manual Pages
++#
++# Copyright (c) 1991-1997 Sam Leffler
++# Copyright (c) 1991-1997 Silicon Graphics, Inc.
++# 
++# Permission to use, copy, modify, distribute, and sell this software and 
++# its documentation for any purpose is hereby granted without fee, provided
++# that (i) the above copyright notices and this permission notice appear in
++# all copies of the software and related documentation, and (ii) the names of
++# Sam Leffler and Silicon Graphics may not be used in any advertising or
++# publicity relating to the software without the specific, prior written
++# permission of Stanford and Silicon Graphics.
++# 
++# THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND, 
++# EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY 
++# WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  
++# 
++# IN NO EVENT SHALL SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR
++# ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
++# OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
++# WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF 
++# LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 
++# OF THIS SOFTWARE.
++#
++
++prefix = e:/emx
++exec_prefix = e:/unix
++
++TOOLSMANDIR= $(exec_prefix)/man/man1
++LIBMANDIR= $(prefix)/man/man3
++
++NULL	=
++ECHO	= echo
++SED	= sed
++MV	= mv
++RM	= rm -f
++INSTALL	= install
++
++MANTOOLS=\
++	fax2tiff.1 \
++	fax2ps.1 \
++	gif2tiff.1 \
++	pal2rgb.1 \
++	ppm2tiff.1 \
++	ras2tiff.1 \
++	rgb2ycbcr.1 \
++	sgi2tiff.1 \
++	thumbnail.1 \
++	tiff2bw.1 \
++	tiff2ps.1 \
++	tiffcmp.1 \
++	tiffcp.1 \
++	tiffdither.1 \
++	tiffdump.1 \
++	tiffgt.1 \
++	tiffinfo.1 \
++	tiffmedian.1 \
++	tiffsplit.1 \
++	tiffsv.1 \
++	${NULL}
++
++MANDEV=\
++	libtiff.3 \
++	TIFFClose.3 \
++	TIFFError.3 \
++	TIFFFlush.3 \
++	TIFFGetField.3 \
++	TIFFOpen.3 \
++	TIFFPrintDirectory.3 \
++	TIFFReadDirectory.3 \
++	TIFFReadEncodedStrip.3 \
++	TIFFReadEncodedTile.3 \
++	TIFFReadRGBAImage.3 \
++	TIFFReadRawStrip.3 \
++	TIFFReadRawTile.3 \
++	TIFFReadScanline.3 \
++	TIFFReadTile.3 \
++	TIFFRGBAImage.3 \
++	TIFFSetDirectory.3 \
++	TIFFSetField.3 \
++	TIFFWarning.3 \
++	TIFFWriteDirectory.3 \
++	TIFFWriteEncodedStrip.3 \
++	TIFFWriteEncodedTile.3 \
++	TIFFWriteRawStrip.3 \
++	TIFFWriteRawTile.3 \
++	TIFFWriteScanline.3 \
++	TIFFbuffer.3 \
++	TIFFcodec.3 \
++	TIFFmemory.3 \
++	TIFFquery.3 \
++	TIFFsize.3 \
++	TIFFstrip.3 \
++	TIFFswab.3 \
++	TIFFtile.3 \
++	${NULL}
++
++install:
++	@${INSTALL} -d ${TOOLSMANDIR}
++	${INSTALL} -c ${MANTOOLS} ${TOOLSMANDIR}
++	@${INSTALL} -d ${LIBMANDIR}
++	${INSTALL} -c ${MANDEV} ${LIBMANDIR}
++
+diff -ruN tiff-v3.4beta037.orig/tools/exedefault.def tiff-v3.4beta037/tools/exedefault.def
+--- tiff-v3.4beta037.orig/tools/exedefault.def	Thu Jan  1 00:00:00 1970
++++ tiff-v3.4beta037/tools/exedefault.def	Fri Jan 22 18:06:10 1999
+@@ -0,0 +1,2 @@
++NAME WINDOWCOMPAT
++STACKSIZE 524288
+diff -ruN tiff-v3.4beta037.orig/tools/Makefile.emx tiff-v3.4beta037/tools/Makefile.emx
+--- tiff-v3.4beta037.orig/tools/Makefile.emx	Thu Jan  1 00:00:00 1970
++++ tiff-v3.4beta037/tools/Makefile.emx	Sat Dec 26 23:27:26 1998
+@@ -0,0 +1,147 @@
++#	$Header: /d1/sam/tiff/tools/RCS/Makefile.in,v 1.22 1997/08/29 21:46:45 sam Exp $
++#
++# @WARNING@
++#
++# TIFF Library Tools
++#
++# Copyright (c) 1988-1997 Sam Leffler
++# Copyright (c) 1991-1997 Silicon Graphics, Inc.
++# 
++# Permission to use, copy, modify, distribute, and sell this software and 
++# its documentation for any purpose is hereby granted without fee, provided
++# that (i) the above copyright notices and this permission notice appear in
++# all copies of the software and related documentation, and (ii) the names of
++# Sam Leffler and Silicon Graphics may not be used in any advertising or
++# publicity relating to the software without the specific, prior written
++# permission of Stanford and Silicon Graphics.
++# 
++# THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND, 
++# EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY 
++# WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  
++# 
++# IN NO EVENT SHALL SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR
++# ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
++# OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
++# WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF 
++# LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 
++# OF THIS SOFTWARE.
++#
++
++exec_prefix=e:/unix
++bindir=$(exec_prefix)/bin
++
++LIBDIR	= ../libtiff
++SHELL	= sh
++NULL	=
++CC	= gcc
++INSTALL	= install
++#
++IPATH	= -I. -I${LIBDIR}
++CFLAGS	= -s -O2 -m486 -Zmtd -D__ST_MT_ERRNO__ -Zomf -Zexe -Zbin-files $(IPATH)
++#
++TIFFLIB	= ../libtiff/tiff.lib
++LIBJPEG	= -ljpeg
++LIBGZ	= -lz
++LIBTIFF	= -L../libtiff -ltiff
++MACHLIBS= 
++LIBS	= exedefault.def ${LIBTIFF} ${LIBJPEG} ${LIBGZ} ${MACHLIBS}
++#
++TARGETS	=\
++	fax2tiff \
++	fax2ps \
++	gif2tiff \
++	pal2rgb \
++	ppm2tiff \
++	rgb2ycbcr \
++	thumbnail \
++	ras2tiff \
++	tiff2bw \
++	tiff2ps \
++	tiffcmp \
++	tiffcp \
++	tiffdither \
++	tiffdump \
++	tiffinfo \
++	tiffmedian \
++	tiffsplit \
++	${NULL}
++
++all:	${TARGETS}
++
++install: all
++	@${INSTALL} -d $(bindir)
++	${INSTALL} -c *.exe $(bindir)
++
++clean:
++	rm -f ${TARGETS} *.exe *.o *.obj a.out core
++
++#
++# System-independent tools
++#
++
++tiffinfo: tiffinfo.c ${TIFFLIB}
++	${CC} -o tiffinfo ${CFLAGS} tiffinfo.c ${LIBS}
++
++tiffcmp: tiffcmp.c ${TIFFLIB}
++	${CC} -o tiffcmp ${CFLAGS} tiffcmp.c ${LIBS}
++
++tiffcp:	tiffcp.c ${TIFFLIB}
++	${CC} -o tiffcp ${CFLAGS} tiffcp.c ${LIBS}
++
++tiffdump: tiffdump.c
++	${CC} -o tiffdump ${CFLAGS} tiffdump.c ${LIBS}
++
++tiffmedian: tiffmedian.c ${TIFFLIB}
++	${CC} -o tiffmedian ${CFLAGS} tiffmedian.c ${LIBS}
++
++tiffsplit: tiffsplit.c ${TIFFLIB}
++	${CC} -o tiffsplit ${CFLAGS} tiffsplit.c ${LIBS}
++
++tiff2ps: tiff2ps.c ${TIFFLIB}
++	${CC} -o tiff2ps ${CFLAGS} tiff2ps.c ${LIBS}
++
++#
++# Junky stuff... programs that are more examples of how
++# to use the library than full-blown useful tools.
++#
++
++# convert RGB image to B&W
++tiff2bw: tiff2bw.c ${TIFFLIB}
++	${CC} -o tiff2bw ${CFLAGS} tiff2bw.c ${LIBS}
++
++# convert B&W image to bilevel w/ FS dithering
++tiffdither: tiffdither.c ${TIFFLIB}
++	${CC} -o tiffdither ${CFLAGS} tiffdither.c ${LIBS}
++
++# simple Sun rasterfile converter
++ras2tiff: ras2tiff.c ${TIFFLIB}
++	${CC} -o ras2tiff ${CFLAGS} ras2tiff.c ${LIBS}
++
++# simple GIF converter
++gif2tiff: gif2tiff.c ${TIFFLIB}
++	${CC} -o gif2tiff ${CFLAGS} gif2tiff.c ${LIBS}
++
++# very limited PBM converter
++ppm2tiff: ppm2tiff.c ${TIFFLIB}
++	${CC} -o ppm2tiff ${CFLAGS} ppm2tiff.c ${LIBS}
++
++# Group 3/4 FAX file converter
++fax2tiff: fax2tiff.c ${TIFFLIB}
++	${CC} -o fax2tiff ${CFLAGS} fax2tiff.c ${LIBS}
++
++# Group 3/4 FAX to encoded PS converter
++fax2ps: fax2ps.c ${TIFFLIB}
++	${CC} -o fax2ps ${CFLAGS} fax2ps.c ${LIBS}
++
++# convert Palette image to RGB
++pal2rgb: pal2rgb.c ${TIFFLIB}
++	${CC} -o pal2rgb ${CFLAGS} pal2rgb.c ${LIBS}
++
++# convert RGB image to YCbCr
++rgb2ycbcr: rgb2ycbcr.c ${TIFFLIB}
++	${CC} -o rgb2ycbcr ${CFLAGS} rgb2ycbcr.c ${LIBS}
++
++# generate thumbnail images from fax (example of SubIFD usage)
++thumbnail: thumbnail.c ${TIFFLIB}
++	${CC} -o thumbnail ${CFLAGS} thumbnail.c ${LIBS}
++
+diff -ruN tiff-v3.4beta037.orig/tools/thumbnail.c tiff-v3.4beta037/tools/thumbnail.c
+--- tiff-v3.4beta037.orig/tools/thumbnail.c	Wed Sep  3 01:54:38 1997
++++ tiff-v3.4beta037/tools/thumbnail.c	Wed Jun 24 17:39:06 1998
+@@ -28,6 +28,10 @@
+ #include <string.h>
+ #include <math.h>
+ 
++#ifdef __EMX__
++#define strcasecmp stricmp
++#endif
++
+ #include "tiffio.h"
+ 
+ #define	streq(a,b)	(strcasecmp(a,b) == 0)
+diff -ruN tiff-v3.4beta037.orig/tools/tiffdump.c tiff-v3.4beta037/tools/tiffdump.c
+--- tiff-v3.4beta037.orig/tools/tiffdump.c	Wed Sep  3 01:54:38 1997
++++ tiff-v3.4beta037/tools/tiffdump.c	Wed Jun 24 17:41:02 1998
+@@ -28,6 +28,9 @@
+ #include <stdlib.h>
+ #include <string.h>
+ 
++#ifdef __EMX__
++#include <sys/types.h>
++#endif
+ #if defined(VMS)
+ #include <unixio.h>
+ #include <file.h>
